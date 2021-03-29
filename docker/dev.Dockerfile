@@ -2,8 +2,8 @@
 FROM rust:latest AS builder
 
 # Meta data
-LABEL maintainer="project_author_email"
-LABEL description="project_description"
+LABEL maintainer="email@mattglei.ch"
+LABEL description="🤖 Automation program for my shorty instance"
 
 # File copy
 COPY . /usr/src/app
@@ -17,5 +17,5 @@ RUN cargo make build-rust-dev
 # hadolint ignore=DL3006,DL3007
 FROM alpine:latest
 WORKDIR /
-COPY --from=builder /usr/src/app/target/debug/project_name .
-CMD ["./project_name"]
+COPY --from=builder /usr/src/app/target/debug/auto-shorty .
+CMD ["./auto-shorty"]
