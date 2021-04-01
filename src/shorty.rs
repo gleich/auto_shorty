@@ -4,6 +4,7 @@ use anyhow::{bail, Context};
 use reqwest::blocking::Client;
 use reqwest::StatusCode;
 use serde_json::json;
+use tracing::info;
 
 use crate::api::Social;
 
@@ -31,7 +32,7 @@ pub fn update_social_links(client: &Client, socials: Vec<Social>) -> anyhow::Res
 			)
 		}
 
-		println!("Update link for /{}", social.name)
+		info!("Update link for /{}", social.name)
 	}
 
 	Ok(())
