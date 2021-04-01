@@ -11,18 +11,16 @@ pub struct Social {
 	pub url: String,
 }
 
-pub fn fetch_socials() -> anyhow::Result<Vec<Social>> {
-	let query = json!({"query": "query { socials { accounts { name, url, description } } }"});
-
+pub fn fetch_socials(client: &Client) -> anyhow::Result<Vec<Social>> {
 	// Making request
-	let client = Client::new();
 	let response = client
 		.post("https://gql.api.mattglei.ch")
-		.json(&query)
+		.json(&json!({"query": "query { socials { accounts { name, url, description } } }"}))
 		.send()
 		.context("Failed to send request")?;
-	if response.status() != StatusCode::OK {
-		bail!("Status code of {} not equal to 200 (ok)", response.status());
+	let status = response.status();
+	if status != StatusCode::OK {
+		bail!("Status code of {} not equal to 200 (ok)", status);
 	}
 
 	// Parsing response
