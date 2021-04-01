@@ -1,10 +1,8 @@
-use std::collections::HashMap;
-
-use anyhow::{bail, Context, Result};
+use anyhow::{bail, Context};
 use reqwest::blocking::Client;
 use reqwest::StatusCode;
 use serde::Deserialize;
-use serde_json::Value;
+use serde_json::{json, Value};
 
 #[derive(Deserialize, Debug)]
 pub struct Social {
@@ -13,12 +11,8 @@ pub struct Social {
 	pub url: String,
 }
 
-pub fn fetch_socials() -> Result<Vec<Social>, anyhow::Error> {
-	let mut query = HashMap::new();
-	query.insert(
-		"query",
-		"query { socials { accounts { name, url, description } } }",
-	);
+pub fn fetch_socials() -> anyhow::Result<Vec<Social>> {
+	let query = json!({"query": "query { socials { accounts { name, url, description } } }"});
 
 	// Making request
 	let client = Client::new();
@@ -34,7 +28,7 @@ pub fn fetch_socials() -> Result<Vec<Social>, anyhow::Error> {
 	// Parsing response
 	let response_body = response.text().context("Failed to get output of request")?;
 	let accounts: Value =
-		serde_json::from_str(response_body.as_str()).context("Failed to parse response")?;
+		serde_json::from_str(&response_body).context("Failed to parse response")?;
 
 	// Collecting vector of Social
 	let mut socials: Vec<Social> = Vec::new();
