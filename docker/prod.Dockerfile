@@ -18,4 +18,9 @@ RUN cargo make build-rust-prod
 FROM alpine:latest
 WORKDIR /
 COPY --from=builder /usr/src/app/target/release/auto-shorty .
+
+# Setting env vars
+ENV RUST_LOG info
+ENV RUST_BACKTRACE 1
+
 CMD ["./auto-shorty"]
