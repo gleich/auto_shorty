@@ -32,7 +32,7 @@ pub fn update_social_links(client: &Client, socials: Vec<Social>) -> anyhow::Res
 			)
 		}
 
-		info!("Update link for /{}", social.name)
+		info!("Updated link for /{}", social.name)
 	}
 
 	Ok(())
