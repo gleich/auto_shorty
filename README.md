@@ -1,8 +1,10 @@
 <!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich"]:end -->
+
 # auto-shorty
 
 [![lint](https://github.com/Matt-Gleich/auto-shorty/actions/workflows/lint.yml/badge.svg)](https://github.com/Matt-Gleich/auto-shorty/actions/workflows/lint.yml)
 [![build](https://github.com/Matt-Gleich/auto-shorty/actions/workflows/build.yml/badge.svg)](https://github.com/Matt-Gleich/auto-shorty/actions/workflows/build.yml)
+[![deploy](https://github.com/Matt-Gleich/auto-shorty/actions/workflows/deploy.yml/badge.svg)](https://github.com/Matt-Gleich/auto-shorty/actions/workflows/deploy.yml)
 
 🤖 Automation program for my shorty instance
 
