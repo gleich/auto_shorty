@@ -35,11 +35,10 @@ pub fn fetch_socials(client: &Client) -> anyhow::Result<Vec<Social>> {
 		.unwrap()
 		.iter()
 	{
-		socials.push(Social {
-			name: account["name"].to_string().replace("\"", ""),
-			description: account["description"].to_string().replace("\"", ""),
-			url: account["url"].to_string().replace("\"", ""),
-		})
+		socials.push(
+			serde_json::from_value(account.to_owned())
+				.context("Failed to parse a specific social account")?,
+		);
 	}
 
 	Ok(socials)
