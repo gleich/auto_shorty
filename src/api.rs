@@ -44,3 +44,16 @@ pub fn fetch_socials(client: &Client) -> anyhow::Result<Vec<Social>> {
 
 	Ok(socials)
 }
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn test_fetch_socials() -> Result<(), anyhow::Error> {
+		let client = Client::new();
+		let result = fetch_socials(&client)?;
+		assert!(!result.is_empty());
+		Ok(())
+	}
+}
