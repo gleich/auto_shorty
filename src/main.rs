@@ -12,7 +12,7 @@ fn main() {
 	tracing_subscriber::fmt::init();
 	let client = Client::new();
 	info!("Created client");
-	let sleep_time = Duration::from_secs(60);
+	let sleep_time = Duration::from_secs(60 * 5);
 
 	loop {
 		let socials = api::fetch_socials(&client).expect("Failed to get social media accounts");
