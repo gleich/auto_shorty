@@ -24,9 +24,9 @@ pub fn fetch_socials(client: &Client) -> anyhow::Result<Vec<Social>> {
 	}
 
 	// Parsing response
-	let response_body = response.text().context("Failed to get output of request")?;
 	let accounts: Value =
-		serde_json::from_str(&response_body).context("Failed to parse response")?;
+		serde_json::from_str(&response.text().context("Failed to get output of request")?)
+			.context("Failed to parse response")?;
 
 	// Collecting vector of Social
 	let mut socials: Vec<Social> = Vec::new();
