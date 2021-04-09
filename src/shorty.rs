@@ -18,7 +18,7 @@ pub struct Link {
 const SHORTY_TOKEN: &'static str = "SHORTY_TOKEN";
 const SHORTY_URL: &'static str = "https://links.mattglei.ch";
 
-pub fn get_links(client: &Client) -> anyhow::Result<Vec<Link>> {
+pub fn get_links(client: &Client) -> Result<Vec<Link>, anyhow::Error> {
 	let shorty_token = env::var(SHORTY_TOKEN)?;
 	// Making request
 	let response = client
@@ -57,7 +57,7 @@ pub fn update_social_links(
 	client: &Client,
 	socials: Vec<Social>,
 	links: Vec<Link>,
-) -> anyhow::Result<()> {
+) -> Result<(), anyhow::Error> {
 	let shorty_token = env::var(SHORTY_TOKEN)?;
 	for social in socials.iter() {
 		// Formulating request based off link existence

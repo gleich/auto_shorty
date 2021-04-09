@@ -11,7 +11,7 @@ pub struct Social {
 	pub url: String,
 }
 
-pub fn fetch_socials(client: &Client) -> anyhow::Result<Vec<Social>> {
+pub fn fetch_socials(client: &Client) -> Result<Vec<Social>, anyhow::Error> {
 	// Making request
 	let response = client
 		.post("https://gql.api.mattglei.ch")
