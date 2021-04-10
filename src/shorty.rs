@@ -1,6 +1,6 @@
 use std::env;
 
-use anyhow::{bail, Context};
+use anyhow::Context;
 use reqwest::blocking::Client;
 use reqwest::StatusCode;
 use serde::Deserialize;
@@ -15,8 +15,8 @@ pub struct Link {
 	public: bool,
 }
 
-const SHORTY_TOKEN: &'static str = "SHORTY_TOKEN";
-const SHORTY_URL: &'static str = "https://links.mattglei.ch";
+const SHORTY_TOKEN: &str = "SHORTY_TOKEN";
+const SHORTY_URL: &str = "https://links.mattglei.ch";
 
 pub fn get_links(client: &Client) -> Result<Vec<Link>, anyhow::Error> {
 	let shorty_token = env::var(SHORTY_TOKEN)?;
@@ -25,28 +25,26 @@ pub fn get_links(client: &Client) -> Result<Vec<Link>, anyhow::Error> {
 		.get(format!("{}/api/link", SHORTY_URL))
 		.bearer_auth(&shorty_token)
 		.send()
-		.context("Failed to send request to get list of links")?;
-	let status = response.status();
-	if status != StatusCode::OK {
-		bail!(
-			"Request to get list of links failed with status code of {}",
-			status
-		);
-	}
+		.with_context(|| "Failed to send request to get list of links")?;
+	anyhow::ensure!(
+		response.status() == StatusCode::OK,
+		"Response didn't have status code of 200"
+	);
 
 	// Parsing response
 	let shorty_links: Value = serde_json::from_str(
 		&response
 			.text()
-			.context("Failed to get returned response of request")?,
+			.with_context(|| "Failed to get returned response of request")?,
 	)
-	.context("Failed to parse response")?;
+	.with_context(|| "Failed to parse response")?;
 
 	// Collecting vector of Link
 	let mut links: Vec<Link> = Vec::new();
 	for link in shorty_links["data"].as_array().unwrap().iter() {
 		links.push(
-			serde_json::from_value(link.to_owned()).context("Failed to parse a specific link")?,
+			serde_json::from_value(link.to_owned())
+				.with_context(|| "Failed to parse a specific link")?,
 		)
 	}
 
@@ -78,17 +76,11 @@ pub fn update_social_links(
 		let response = request
 			.bearer_auth(&shorty_token)
 			.send()
-			.context(format!("Failed to update link /{}", social.name))?;
-
-		// Checking response status code
-		let status = response.status();
-		if status != StatusCode::OK {
-			bail!(
-				"Failed to update link of {} with status code of {}",
-				social.name,
-				status
-			);
-		}
+			.with_context(|| format!("Failed to update link /{}", social.name))?;
+		anyhow::ensure!(
+			response.status() == StatusCode::OK,
+			"Response didn't have status code of 200"
+		);
 
 		if exists {
 			info!("Updated link for /{}", social.name)

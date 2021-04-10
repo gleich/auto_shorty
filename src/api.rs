@@ -1,4 +1,4 @@
-use anyhow::{bail, Context};
+use anyhow::Context;
 use reqwest::blocking::Client;
 use reqwest::StatusCode;
 use serde::Deserialize;
@@ -17,16 +17,19 @@ pub fn fetch_socials(client: &Client) -> Result<Vec<Social>, anyhow::Error> {
 		.post("https://gql.api.mattglei.ch")
 		.json(&json!({"query": "query { socials { accounts { name, url, description } } }"}))
 		.send()
-		.context("Failed to send request")?;
-	let status = response.status();
-	if status != StatusCode::OK {
-		bail!("Status code of {} not equal to 200 (ok)", status);
-	}
+		.with_context(|| "Failed to send request")?;
+	anyhow::ensure!(
+		response.status() == StatusCode::OK,
+		"Response didn't have status code of 200"
+	);
 
 	// Parsing response
-	let accounts: Value =
-		serde_json::from_str(&response.text().context("Failed to get output of request")?)
-			.context("Failed to parse response")?;
+	let accounts: Value = serde_json::from_str(
+		&response
+			.text()
+			.with_context(|| "Failed to get output of request")?,
+	)
+	.with_context(|| "Failed to parse response")?;
 
 	// Collecting vector of Social
 	let mut socials: Vec<Social> = Vec::new();
@@ -37,7 +40,7 @@ pub fn fetch_socials(client: &Client) -> Result<Vec<Social>, anyhow::Error> {
 	{
 		socials.push(
 			serde_json::from_value(account.to_owned())
-				.context("Failed to parse a specific social account")?,
+				.with_context(|| "Failed to parse a specific social account")?,
 		);
 	}
 
