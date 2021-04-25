@@ -62,6 +62,9 @@ pub fn update_social_links(
 		let mut exists = false;
 		for link in links.iter() {
 			exists = link.public && link.name == social.name;
+			if exists {
+				break;
+			}
 		}
 		let mut request = client.post(format!("{}/api/link", SHORTY_URL)).json(
 			&json!({"url": social.url, "description": social.description, "public": true, "name": social.name}),
