@@ -14,7 +14,7 @@ pub struct Social {
 pub fn fetch_socials(client: &Client) -> Result<Vec<Social>, anyhow::Error> {
 	// Making request
 	let response = client
-		.post("https://gql.api.mattglei.ch")
+		.post("https://graphql.api.mattglei.ch")
 		.json(&json!({"query": "query { socials { accounts { name, url, description } } }"}))
 		.send()
 		.with_context(|| "Failed to send request")?;
