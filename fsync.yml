@@ -1,7 +1,7 @@
 commit_message: 'chore(syncing): Sync files to latest version'
 replace:
   - before: project_name
-    after: auto-shorty
+    after: auto_shorty
   - before: project_description
     after: 🤖 Automation program for my shorty instance
   - before: github_username

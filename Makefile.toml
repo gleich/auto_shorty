@@ -25,7 +25,7 @@ args = [
     "-f",
     "docker/prod.Dockerfile",
     "-t",
-    "mattgleich/auto-shorty:latest",
+    "mattgleich/auto_shorty:latest",
     "."
 ]
 
@@ -36,7 +36,7 @@ args = [
     "-f",
     "docker/dev.Dockerfile",
     "-t",
-    "mattgleich/auto-shorty:dev",
+    "mattgleich/auto_shorty:dev",
     "."
 ]
 

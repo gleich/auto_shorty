@@ -28,7 +28,7 @@ RUN cargo make build-rust-dev
 # hadolint ignore=DL3006,DL3007
 FROM debian:stable-slim
 WORKDIR /
-COPY --from=builder /usr/src/app/target/debug/auto-shorty .
+COPY --from=builder /usr/src/app/target/debug/auto_shorty .
 
 # Install needed deps
 # hadolint ignore=DL3008
@@ -41,4 +41,4 @@ RUN apt-get update -y \
 ENV RUST_LOG info
 ENV RUST_BACKTRACE 1
 
-CMD ["./auto-shorty"]
+CMD ["./auto_shorty"]

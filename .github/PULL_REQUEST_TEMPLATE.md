@@ -20,5 +20,5 @@ This PR resolves #22
 -->
 
 <!--
-Thank you for your contribution to auto-shorty!
+Thank you for your contribution to auto_shorty!
 -->

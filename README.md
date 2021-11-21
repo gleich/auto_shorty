@@ -1,11 +1,11 @@
 <!-- DO NOT REMOVE - contributor_list:data:start:["gleich"]:end -->
 
-# auto-shorty
+# auto_shorty
 
-[![lint](https://github.com/gleich/auto-shorty/actions/workflows/lint.yml/badge.svg)](https://github.com/gleich/auto-shorty/actions/workflows/lint.yml)
-[![build](https://github.com/gleich/auto-shorty/actions/workflows/build.yml/badge.svg)](https://github.com/gleich/auto-shorty/actions/workflows/build.yml)
-[![deploy](https://github.com/gleich/auto-shorty/actions/workflows/deploy.yml/badge.svg)](https://github.com/gleich/auto-shorty/actions/workflows/deploy.yml)
-[![test](https://github.com/gleich/auto-shorty/actions/workflows/test.yml/badge.svg)](https://github.com/gleich/auto-shorty/actions/workflows/test.yml)
+[![lint](https://github.com/gleich/auto_shorty/actions/workflows/lint.yml/badge.svg)](https://github.com/gleich/auto_shorty/actions/workflows/lint.yml)
+[![build](https://github.com/gleich/auto_shorty/actions/workflows/build.yml/badge.svg)](https://github.com/gleich/auto_shorty/actions/workflows/build.yml)
+[![deploy](https://github.com/gleich/auto_shorty/actions/workflows/deploy.yml/badge.svg)](https://github.com/gleich/auto_shorty/actions/workflows/deploy.yml)
+[![test](https://github.com/gleich/auto_shorty/actions/workflows/test.yml/badge.svg)](https://github.com/gleich/auto_shorty/actions/workflows/test.yml)
 
 🤖 Automation program for my shorty instance
 
